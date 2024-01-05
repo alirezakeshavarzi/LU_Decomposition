@@ -1,4 +1,31 @@
 
+def multi_mats(mat1, mat2, row1, col1, row2, col2):
+
+    ans = []
+    for i in range(row1):
+        c = []
+        for j in range(col2):
+            s = 0
+            for k in range(row2):
+                s += (mat1[i][k] * mat2[k][j])
+            c.append(s)
+        ans.append(c)
+
+    return ans
+
+
+
+def inverse_mat_sign(mat, n):
+
+    for i in range(1, n):
+        for j in range(i):
+            mat[i][j] *= (-1)
+
+    return mat
+
+
+
+
 def identity_mat(n):
     iden_mat = []
 
@@ -36,8 +63,10 @@ def LU_t(mat1, row, col):
     ans = []
     ans.append(mat1)
 
-    print("E1: ", E1)
-    print("E2: ", E2)
+    E1 = inverse_mat_sign(E1, row)
+    E2 = inverse_mat_sign(E2, row)
+
+    
 
     return ans
 
@@ -46,6 +75,16 @@ m1 = [ [1,1,0],
        [2,3,1],
        [1,2,3] ]
 
+m2 = [ [1,4,2],
+       [1,1,1],
+       [3,1,7] ]
+
 lm = len(m1[0])
 
-print("iden mat in main: ", LU_t(m1, lm, lm))
+
+a = multi_mats(m1, m2, 3,3,3,3)
+print("This is mat: ", a)
+
+print()
+for i in range(lm):
+    print(a[i])
