@@ -1,4 +1,5 @@
 
+# Multiplication of two matrices
 def multi_mats(mat1, mat2, row1, col1, row2, col2):
 
     ans = []
@@ -14,7 +15,7 @@ def multi_mats(mat1, mat2, row1, col1, row2, col2):
     return ans
 
 
-
+# Change the sign of the values of a matrix
 def inverse_mat_sign(mat, n):
 
     for i in range(1, n):
@@ -25,7 +26,7 @@ def inverse_mat_sign(mat, n):
 
 
 
-
+# Create identity matrix
 def identity_mat(n):
     iden_mat = []
 
@@ -36,17 +37,24 @@ def identity_mat(n):
         iden_mat.append(l1)
         l1 = []    
 
-    for i in range(n): # this is again work, fix that or find a way to better time it!
+    for i in range(n):
         iden_mat[i][i] = 1
     return iden_mat
 
+
+
+# Decompose a matrix into L and U
 def LU_t(mat1, row, col):
     zero_val = 0.0
 
+    # create identity matrix (To calculate L)
     E1 = identity_mat(row)
     E2 = identity_mat(row)
+
     c = True
 
+
+    # Create an upper triangular matrix (Zeroing of value below the main diameter)    
     for k in range(col):
         for i in range(k, row-1):            
             zero_val = (mat1[i+1][k] / mat1[k][k]) * (-1)
@@ -60,13 +68,17 @@ def LU_t(mat1, row, col):
                 mat1[i+1][j] += zero_val * mat1[k][j]
         c = False
     
+    # Answer is an array (U & L)
     ans = []
     ans.append(mat1)
 
+    # Change the sign of the values of a matrix
     E1 = inverse_mat_sign(E1, row)
     E2 = inverse_mat_sign(E2, row)
 
-    
+    # Multiplication of two matrices
+    m = multi_mats(E1, E2, row, row, row, row)
+    ans.append(m)
 
     return ans
 
@@ -82,9 +94,25 @@ m2 = [ [1,4,2],
 lm = len(m1[0])
 
 
-a = multi_mats(m1, m2, 3,3,3,3)
-print("This is mat: ", a)
+a = LU_t(m1, lm, lm)
+
+print("L :", a[1])
+print("U :", a[0])
 
 print()
+print('L: ')
 for i in range(lm):
-    print(a[i])
+    print(a[1][i])
+
+print()
+print('U: ')
+for i in range(lm):
+    print(a[0][i])
+
+y = multi_mats(a[1], a[0], lm, lm, lm, lm)
+
+print()
+print("y: ")
+for i in range(lm):
+    print(y[i])
+
