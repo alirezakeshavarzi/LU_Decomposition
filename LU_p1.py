@@ -81,38 +81,3 @@ def LU_t(mat1, row, col):
     ans.append(m)
 
     return ans
-
-
-m1 = [ [1,1,0],
-       [2,3,1],
-       [1,2,3] ]
-
-m2 = [ [1,4,2],
-       [1,1,1],
-       [3,1,7] ]
-
-lm = len(m1[0])
-
-
-a = LU_t(m1, lm, lm)
-
-print("L :", a[1])
-print("U :", a[0])
-
-print()
-print('L: ')
-for i in range(lm):
-    print(a[1][i])
-
-print()
-print('U: ')
-for i in range(lm):
-    print(a[0][i])
-
-y = multi_mats(a[1], a[0], lm, lm, lm, lm)
-
-print()
-print("y: ")
-for i in range(lm):
-    print(y[i])
-
